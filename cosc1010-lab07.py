@@ -1,12 +1,9 @@
-# Your Name Here
+# Caleb Behrman
 # UWYO COSC 1010
-# Submission Date
-# Lab XX
-# Lab Section: 
-# Sources, people worked with, help given to: 
-# your
-# comments
-# here
+# 10/30/24
+# Lab 7
+# Lab Section: 10
+# Sources, people worked with, help given to: Chatgpt, for the factorial part of the code
 
 
 #This code below will just prompt the person using the code to use a positive number
