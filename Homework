@@ -1,0 +1,80 @@
+#Caleb Behrman
+#hw number 3
+#lab section 10
+#11/5/24
+
+def is_leap_year(year):
+    if (year%4==0 and year%100!=0) or (year%400==0):
+        return True
+    return False
+
+def get_jan_first_day(year):
+    y=year-1 
+    day_of_week=(36+y+(y//4)-(y//100)+(y//400))%7
+    return day_of_week
+
+def is_valid_date(month, day, year):
+    #The moonths with 31 days in the year
+    month_days={1:31,3:31,5:31,7:31,8:31,10:31,12:31}
+    #Months with 30 days in the year instead of 31
+    month_days.update({4:30,6:30,9:30,11:30})
+    #February
+    if is_leap_year(year):
+        month_days[2]=29  #Leap year February has 29 days i think
+    else:
+        month_days[2]=28  #Non-leap year February has 28 days i think
+    
+
+    if month <1 or month>12:
+        return False
+    if day <1 or day > month_days.get(month,0):
+        return False
+    return True
+
+def calculate_day_of_week(month, day, year):
+    #Get the day of the week for January 1st
+    jan_first_day=get_jan_first_day(year)
+    
+    #Days in each month
+    days_in_months = [31,28,31,30,31,30,31,31,30,31,30,31]
+    
+    #Adjust for leap yearz
+    if is_leap_year(year):
+        days_in_months[1]=29
+    
+    #Calclulate how many days have passed since the start of the year
+    days_since_jan_first=sum(days_in_months[:month-1])+(day-1)
+    
+    #Calculate the day of the week
+    day_of_week=(jan_first_day+days_since_jan_first)%7
+    return day_of_week
+
+def get_day_name(day_of_week):
+    days_of_week = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+    return days_of_week[day_of_week]
+
+def main():
+    #This just makes the code read the input
+    input_date=input("Enter a date (MM/DD/YYYY): ")
+    
+    #Validate the input
+    try:
+        month, day, year = map(int, input_date.split('/'))
+    except ValueError:
+        print(f"{input_date} Invalid Date")
+        return
+    
+    #Validate the date
+    if not is_valid_date(month, day, year):
+        print(f"{input_date} Invalid Date")
+        return
+    
+    #Calculate the day of the weeek
+    day_of_week=calculate_day_of_week(month, day, year)
+    day_name=get_day_name(day_of_week)
+    
+    # Print the result
+    print(f"{input_date} {day_name}")
+
+if __name__=="__main__":
+    main()
